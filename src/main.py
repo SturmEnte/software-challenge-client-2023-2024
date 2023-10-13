@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 
 from network import Connection
+from parser import parse_message
 
 SERVER_HOST = "127.0.0.1"
 SERVER_PORT = 13050
@@ -17,5 +18,6 @@ while True:
         break
     elif message:
         print(message.decode())
+        parse_message(message)
     
 print("\n--- Finished execution of script ---")
