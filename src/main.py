@@ -23,10 +23,10 @@ SERVER_PORT = 13050
 
 # buffer = ""
 
-connection = Connection(SERVER_HOST, SERVER_PORT)
+connection = Connection(SERVER_HOST, SERVER_PORT, True)
 connection.join()
 
-while True:
+# while True:
     # messages = connection.receive_messages()
     
     # buffer += sock.recv(1024).decode('utf-8')
@@ -48,4 +48,10 @@ while True:
     #     print(data.attrib)
     #     buffer = ""
 
-    pass
+print("Room Id:", connection.roomId)
+
+while True:
+    messages = connection.receive_messages()
+    if messages:
+        print(messages.decode())
+    
