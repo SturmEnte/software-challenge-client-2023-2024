@@ -36,7 +36,7 @@ class Connection():
             self.file.flush()
         return message
 
-    def receive_messages(self):
+    def receive_message(self):
         self.buffer += self.receive()
         if self.buffer.startswith(b'\n  <room roomId="') and self.buffer.endswith(b"</room>"):  # Check if complete room tag is in buffer
             message = self.buffer

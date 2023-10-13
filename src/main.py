@@ -12,10 +12,10 @@ connection.join()
 print("Room Id:", connection.roomId)
 
 while True:
-    messages = connection.receive_messages()
-    if messages == 0:
+    message = connection.receive_message()
+    if message == 0:
         break
-    elif messages:
-        print(messages.decode())
+    elif message:
+        print(message.decode())
     
 print("\n--- Finished execution of script ---")
