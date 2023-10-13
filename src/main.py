@@ -52,6 +52,9 @@ print("Room Id:", connection.roomId)
 
 while True:
     messages = connection.receive_messages()
-    if messages:
+    if messages == 0:
+        break
+    elif messages:
         print(messages.decode())
     
+print("\n--- Finished execution of script ---")

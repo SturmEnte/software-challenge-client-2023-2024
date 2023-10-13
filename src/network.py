@@ -37,13 +37,16 @@ class Connection():
         return message
 
     def receive_messages(self):
-        self.buffer += self.receive()#.replace(b"\n", b"")
-        if self.buffer.startswith(b'\n  <room roomId="') and self.buffer.endswith(b"</room>"):
-            # print(self.buffer.decode())
-            
+        self.buffer += self.receive()
+        if self.buffer.startswith(b'\n  <room roomId="') and self.buffer.endswith(b"</room>"):  # Check if complete room tag is in buffer
             message = self.buffer
             self.buffer = b""
             return message
+        elif self.buffer.startswith(b'\n  <left roomId="'):     # Close connection and file when "left" tag is sent from server
+            self.socket.close()
+            self.file.flush()
+            self.file.close()
+            return 0
         else:
             print("Unfinished Buffer:")
             print(self.buffer)
