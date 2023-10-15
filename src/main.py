@@ -1,5 +1,3 @@
-import xml.etree.ElementTree as ET
-
 from network import Connection
 from message_parser import parse_message
 
