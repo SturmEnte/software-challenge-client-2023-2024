@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ET
 
 def welcomeMessage(data):
     print("Welcome Message")
-    print(data)
     return ("t",data.attrib["color"])
     
 
