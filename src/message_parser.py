@@ -3,13 +3,13 @@ import xml.etree.ElementTree as ET
 def welcomeMessage(data):
     print("Welcome Message")
     return ("t",data.attrib["color"])
-    
 
 def memento(data):
     print("Memento")
 
 def moveRequest(data):
     print("Move request")
+    return ("mr")
 
 def result(data):
     print("Result")
