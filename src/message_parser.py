@@ -1,15 +1,18 @@
 import xml.etree.ElementTree as ET
 
-def welcomeMessage():
+def welcomeMessage(data):
     print("Welcome Message")
+    print(data)
+    return ("t",data.attrib["color"])
+    
 
-def memento():
+def memento(data):
     print("Memento")
 
-def moveRequest():
+def moveRequest(data):
     print("Move request")
 
-def result():
+def result(data):
     print("Result")
 
 def parse_message(message):
@@ -18,16 +21,16 @@ def parse_message(message):
     
     match data.attrib["class"]:
         case "welcomeMessage":
-            welcomeMessage()
+            return welcomeMessage(data)
         
         case "memento":
-            memento()
+            return memento(data)
 
         case "moveRequest":
-            moveRequest()
+            return moveRequest(data)
 
         case "result":
-            result()
+            return result(data)
 
         case _:
             print("Unknown data type:", data.attrib["class"])

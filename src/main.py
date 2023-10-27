@@ -10,12 +10,26 @@ connection.join()
 
 print("Room Id:", connection.roomId)
 
+game_info = {
+    "team":None
+}
+
 while True:
     message = connection.receive_message()
     if message == 0:
         break
     elif message:
         print(message.decode())
-        parse_message(message)
+        parsed = parse_message(message)
+
+        if not parsed:
+            continue
+
+        match parsed[0]:
+            case "t":
+                if LOG:
+                    print(f"Team: {parsed[1]}")
+                game_info["team"] = parsed[1]
+
     
 print("\n--- Finished execution of script ---")
