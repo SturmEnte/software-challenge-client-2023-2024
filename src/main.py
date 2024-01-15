@@ -22,14 +22,21 @@ while True:
         print(message.decode())
         parsed = parse_message(message)
 
+        print(parsed)
+
         if not parsed:
             continue
 
         match parsed[0]:
+            case "mr":
+                print("mr")
+                msg = f'<room roomId="{connection.roomId}">\n<move>\n<actions>\n<acceleration acc="2" />\n<advance distance="2" />\n<push direction="RIGHT" />\n<turn direction="DOWN_RIGHT" />\n</actions>\n</move>\n</room>'
+                print(msg)
+                connection.socket.send(msg.encode())
             case "t":
+                print("t")
                 if LOG:
                     print(f"Team: {parsed[1]}")
                 game_info["team"] = parsed[1]
 
-    
 print("\n--- Finished execution of script ---")

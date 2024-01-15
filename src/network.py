@@ -48,5 +48,6 @@ class Connection():
             self.file.close()
             return 0
         else:
-            print("Unfinished Buffer:")
-            print(self.buffer)
+            # print("Unfinished Buffer:")
+            # print(self.buffer)
+            pass

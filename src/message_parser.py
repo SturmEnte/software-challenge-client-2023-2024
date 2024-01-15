@@ -9,7 +9,7 @@ def memento(data):
 
 def moveRequest(data):
     print("Move request")
-    return ("mr")
+    return ("mr",)
 
 def result(data):
     print("Result")
