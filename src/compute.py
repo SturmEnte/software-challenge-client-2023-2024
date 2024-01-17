@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# compute.py
-#
-# Mika Schiessler
-
-
 from random import choice
 
 def getPossibleMoves(state):

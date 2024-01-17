@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# parse_xml.py
-#
-# Mika Schiessler
-
-
 def parseMementoBoard(state):
     startTeam = state.find('startTeam').text
     fishes = []

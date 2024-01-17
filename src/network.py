@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# network.py
-#
-# Mika Schiessler
-
-
 from socket import socket
 from xml.etree.ElementTree import fromstring
 

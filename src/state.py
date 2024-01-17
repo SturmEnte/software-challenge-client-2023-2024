@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# state.py
-#
-# Mika Schiessler
-
-
 from board import Board
 
 class State():
