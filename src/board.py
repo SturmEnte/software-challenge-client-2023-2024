@@ -8,18 +8,21 @@
 
 
 class Board():
-    def __init__(self, content):
-        '''Takes a list of 8 lists containing the values of each field to initialize the Board class '''
-        for lineCount, line in enumerate(content):
-            for i in range(8):
-                content[lineCount].insert(i*2+(lineCount+1)%2, None)
-        self.board = content
-        self.oneFishs = []
-        for lineCount, line in enumerate(self.board):
-            for fieldCount, field in enumerate(line):
-                if field == 1:
-                    self.oneFishs.append((None,(fieldCount,lineCount)))
+    def __init__(self):
+        '''Board class'''
+        self.board = {} # Structure: {q: {r: {s: fieldObject}}}
     
+    def setField(self, q, r, s, field):
+        if q not in self.board:
+            self.board[q] = {}
+        if r not in self.board[q]:
+            self.board[q][r] = {}
+        self.board[q][r][s] = field
+
+    def getField(self, q, r, s):
+        return self.board[q][r][s]
+    
+    # old
     def update(self, move, state):
         '''Updates the board using a tuple for the move: ((fromX, fromY),(toX, toY)) if startmove then (None, (toX, toY))'''
         toX, toY = move[1]
@@ -42,10 +45,6 @@ class Board():
             else:
                 state.twos.append(move[1])
                 state.twos.remove(move[0])
-    
-    def getField(self, x, y):
-        fld = self.board[y][x]
-        return fld
     
     def __str__(self):
         out = "\n            111111\n  0123456789012345"

@@ -6,22 +6,52 @@
 #
 # Mika Schiessler
 
+from board import Board
+from field import Field
+
+def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
+    q = None
+    r = None
+    s = None
+
+    if direction == "RIGHT":
+        if fieldCount < 3:
+            q = fieldArrayCount - 1 + center['q']
+            r = fieldCount - 2 + center['r']
+            s = 3 - fieldCount - fieldArrayCount + center['s']
+        else:
+            q = 1 - fieldCount + fieldArrayCount + center['q']
+            r = fieldCount - 2 + center['r']
+            s = 1 - fieldArrayCount + center['s']
+    elif direction == "UP_RIGHT":
+        pass
+    elif direction == "DOWN_RIGHT":
+        pass
+
+    return q, r, s
 
 def parseMementoBoard(state):
-    startTeam = state.find('startTeam').text
-    fishes = []
-    for i in state.find('fishes').findall('int'):
-        fishes.append(int(i.text))
-    board = []
-    for a in state.find('board').findall('list'):
-        line = []
-        for b in a.findall('field'):
-            if b.text in ("ONE", "TWO"):
-                line.append(b.text)
-            else:
-                line.append(int(b.text))
-        board.append(line)
-    return startTeam, board, fishes
+    startTeam = state.attrib['startTeam']
+    boardTag = state.find('board')
+    nextDirection = boardTag.attrib['nextDirection']
+    board = Board()
+    for segment in boardTag.findall('segment'):
+        direction = segment.attrib['direction']
+        centerTag = segment.find('center')
+        center = {"q": int(centerTag.attrib['q']), "r": int(centerTag.attrib['r']), "s": int(centerTag.attrib['s'])}
+        for fieldArrayCount, fieldArray in enumerate(segment.findall('field-array')):
+            for fieldCount, fieldName in enumerate(fieldArray):
+                fieldType = fieldName.tag
+                print(fieldType)
+                print(convertCoordinates(fieldArrayCount, fieldCount, direction, center))
+                field = Field(fieldType)
+                if fieldType == "passenger":
+                    field.passengerDirection = fieldName.attrib['direction']
+                    field.passengers = fieldName.attrib['passenger'] # maybe change to boolean
+                coords = convertCoordinates(fieldArrayCount, fieldCount, direction, center)
+                board.setField(coords[0], coords[1], coords[2], field)
+    print(board.board)
+    return startTeam, board, None
 
 def parseMemento(state):
     fishes = []

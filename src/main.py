@@ -11,7 +11,7 @@ from network import Connection
 from state import State
 from compute import computeMove
 from parse_xml import parseMemento, parseMementoBoard, parseResult
-from xml.etree.ElementTree import fromstring
+from xml.etree.ElementTree import fromstring, tostring
 
 from time import time
 
@@ -21,6 +21,7 @@ conn.join()
 while True:
     msgList = conn.recvGameplay()
     for msg in msgList:
+        print("-"*20 + "\nNEW MESSAGE:\n" + tostring(msg).decode("utf-8"))
         data = msg.find('data')
         msgType = data.attrib['class']
         if msgType == "moveRequest":
@@ -31,7 +32,9 @@ while True:
             xmlState = data.find('state')
             turn = int(xmlState.attrib['turn'])
             if turn == 0:
+                print("parseMEMENTO")
                 startTeam, board, fishes = parseMementoBoard(xmlState)
+                print("parseMEMENTO DONE")
                 state = State(conn.team, turn, startTeam, board, fishes)
             else:
                 fishes, lastMove = parseMemento(xmlState)

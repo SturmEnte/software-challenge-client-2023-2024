@@ -14,7 +14,7 @@ class State():
         self.team = team
         self.turn = turn
         self.startTeam = startTeam
-        self.board = Board(board)
+        self.board = Board()
         self.fishes = fishes
         self.ones = []
         self.twos = []
