@@ -1,11 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# parse_xml.py
-#
-# Mika Schiessler
-
 from board import Board
 from field import Field
 
