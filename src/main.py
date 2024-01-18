@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# main.py
-#
-# Mika Schiessler
-
-
 from network import Connection
 from state import State
 from compute import computeMove

@@ -1,12 +1,3 @@
-# Software Challenge 2023
-# Spiel: Hey danke fuer den Fisch
-#
-# Spieler-Client
-# board.py
-#
-# Mika Schiessler
-
-
 class Board():
     def __init__(self):
         '''Board class'''
