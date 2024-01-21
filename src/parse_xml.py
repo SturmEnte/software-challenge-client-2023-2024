@@ -1,5 +1,6 @@
 from board import Board
 from field import Field
+from player import Player
 
 def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
     q = None
@@ -27,23 +28,52 @@ def parseMementoBoard(state):
     boardTag = state.find('board')
     nextDirection = boardTag.attrib['nextDirection']
     board = Board()
+
+    # parse board
     for segment in boardTag.findall('segment'):
         direction = segment.attrib['direction']
         centerTag = segment.find('center')
         center = {"q": int(centerTag.attrib['q']), "r": int(centerTag.attrib['r']), "s": int(centerTag.attrib['s'])}
+
         for fieldArrayCount, fieldArray in enumerate(segment.findall('field-array')):
             for fieldCount, fieldName in enumerate(fieldArray):
+
                 fieldType = fieldName.tag
-                print(fieldType)
-                print(convertCoordinates(fieldArrayCount, fieldCount, direction, center))
+                # print(fieldType)
+                # print(convertCoordinates(fieldArrayCount, fieldCount, direction, center))
                 field = Field(fieldType)
+
                 if fieldType == "passenger":
                     field.passengerDirection = fieldName.attrib['direction']
                     field.passengers = fieldName.attrib['passenger'] # maybe change to boolean
+                
                 coords = convertCoordinates(fieldArrayCount, fieldCount, direction, center)
                 board.setField(coords[0], coords[1], coords[2], field)
-    print(board.board)
-    return startTeam, board, None
+    
+    # parse ships
+    players = []
+    for ship in state.findall('ship'):
+
+        player = Player(
+            ship.attrib['team'],
+            ship.attrib['direction'],
+            ship.attrib['speed'],
+            ship.attrib['coal'],
+            ship.attrib['passengers'],
+            ship.attrib['freeTurns'],
+            ship.attrib['points']
+        )
+
+        position = ship.find('position')
+        player.setPosition(
+            int(position.attrib['q']),
+            int(position.attrib['r']),
+            int(position.attrib['s'])
+        )
+
+        players.append(player)
+
+    return startTeam, board, nextDirection, players
 
 def parseMemento(state):
     fishes = []

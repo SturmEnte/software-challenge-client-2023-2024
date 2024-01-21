@@ -1,7 +1,7 @@
 class Board():
     def __init__(self):
         '''Board class'''
-        self.board = {} # Structure: {q: {r: {s: fieldObject}}}
+        self.board = {} # Structure: {q: {r: {s: fieldObject}}}, could be compacted to just q and r
     
     def setField(self, q, r, s, field):
         if q not in self.board:
@@ -37,22 +37,7 @@ class Board():
                 state.twos.append(move[1])
                 state.twos.remove(move[0])
     
-    def __str__(self):
-        out = "\n            111111\n  0123456789012345"
-        for lineCount, line in enumerate(self.board):
-            out += "\n"
-            out += str(lineCount)+" "
-            if lineCount%2:
-                out += " "
-            for field in line:
-                if field == None:
-                    continue
-                elif field == "ONE":
-                    out += "\033[1;41mR\033[0m "
-                elif field == "TWO":
-                    out += "\033[1;44mB\033[0m "
-                elif field == 0:
-                    out += ". "
-                else:
-                    out += f"\033[1;47;30m{field}\033[0m "
-        return out
+    def axialToDoubleheight(self, q, r, s):
+        y = r
+        x = 2 * q + r
+        return x, y

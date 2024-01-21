@@ -12,7 +12,7 @@ conn.join()
 while True:
     msgList = conn.recvGameplay()
     for msg in msgList:
-        print("-"*20 + "\nNEW MESSAGE:\n" + tostring(msg).decode("utf-8"))
+        print("\nNEW MESSAGE:\n" + tostring(msg).decode("utf-8") + "\n" + "-"*35)
         data = msg.find('data')
         msgType = data.attrib['class']
         if msgType == "moveRequest":
@@ -23,16 +23,14 @@ while True:
             xmlState = data.find('state')
             turn = int(xmlState.attrib['turn'])
             if turn == 0:
-                print("parseMEMENTO")
-                startTeam, board, fishes = parseMementoBoard(xmlState)
-                print("parseMEMENTO DONE")
-                state = State(conn.team, turn, startTeam, board, fishes)
+                startTeam, board, nextDirection, players = parseMementoBoard(xmlState)
+                state = State(conn.team, turn, startTeam, board, nextDirection, players)
             else:
                 fishes, lastMove = parseMemento(xmlState)
                 state.setData(turn, fishes, lastMove)
             t2 = time()
             print(f"Zeit: {t2-t1}   Zug: {turn}")
-            state.printBoard()
+            state.printState()
         elif msgType == "welcomeMessage":
             conn.team = data.attrib['color']
         elif msgType == "result":
