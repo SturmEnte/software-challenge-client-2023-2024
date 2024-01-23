@@ -41,11 +41,14 @@ class Connection():
         self.roomId = fromstring(joinedMsg).attrib['roomId']
         
     def sendMove(self, move):
-        if move[0] == None:
-            move = f'<room roomId="{self.roomId}"><data class="move"><to x="{move[1][0]}" y="{move[1][1]}"/></data></room>'
-        else:
-            move = f'<room roomId="{self.roomId}"><data class="move"><from x="{move[0][0]}" y="{move[0][1]}"/><to x="{move[1][0]}" y="{move[1][1]}"/></data></room>'
-        self.send(move)
+        xml = f'<room roomId="{self.roomId}"><data class="move"><actions>'
+        for actions in move.actions:
+            pass # TODO: implement move stuff
+
+        xml += '<advance distance="1" />' # temporary
+
+        xml += '</actions></data></room>'
+        self.send(xml)
                 
     def recvGameplay(self):
         msgs = self.recvall()

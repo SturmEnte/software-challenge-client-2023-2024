@@ -1,4 +1,5 @@
 from random import choice
+from move import Move
 
 def getPossibleMoves(state):
         pmvs = []
@@ -23,9 +24,5 @@ def getPossibleMoves(state):
         return pmvs
 
 def computeMove(state):
-    pmvs = getPossibleMoves(state)
-    print(pmvs)
-    move = choice(pmvs)
-    print(move)
+    move = Move()
     return move
-                
