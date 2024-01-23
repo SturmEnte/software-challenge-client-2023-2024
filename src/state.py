@@ -56,7 +56,9 @@ class State():
                         y_max = y
                     elif y < y_min:
                         y_min = y
+        
         out = "----------Board-----------\n"
+
         for y in range(y_min, y_max+1):
             for x in range(x_min, x_max+1):
                 if y in board_2d:
@@ -71,26 +73,7 @@ class State():
                         continue
                 out += "  "
             out += "\n"
-            if y%2 == "1":
-                out += "  "
-                
         
-        # for lineCount, line in enumerate(self.board):
-        #     out += "\n"
-        #     out += str(lineCount)+" "
-        #     if lineCount%2:
-        #         out += " "
-        #     for field in line:
-        #         if field == None:
-        #             continue
-        #         elif field == "ONE":
-        #             out += "\033[1;41mR\033[0m "
-        #         elif field == "TWO":
-        #             out += "\033[1;44mB\033[0m "
-        #         elif field == 0:
-        #             out += ". "
-        #         else:
-        #             out += f"\033[1;47;30m{field}\033[0m "
         print(out)
     
     def printPlayer(self, printOwnPlayer=True):

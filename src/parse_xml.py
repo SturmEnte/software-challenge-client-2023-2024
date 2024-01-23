@@ -30,8 +30,17 @@ def parseMementoBoard(state):
     board = Board()
 
     # parse board
-    for segment in boardTag.findall('segment'):
-        direction = segment.attrib['direction']
+    segments = boardTag.findall('segment')
+    
+    directions = []
+    for segment in segments:
+        directions.append(segment.attrib['direction'])
+    directions.append(nextDirection)
+    
+    for segmentCount, segment in enumerate(segments):
+        # direction = segment.attrib['direction']
+        segmentDirection = directions[segmentCount]
+        nextSegmentDirection = directions[segmentCount+1]
         centerTag = segment.find('center')
         center = {"q": int(centerTag.attrib['q']), "r": int(centerTag.attrib['r']), "s": int(centerTag.attrib['s'])}
 
@@ -47,7 +56,32 @@ def parseMementoBoard(state):
                     field.passengerDirection = fieldName.attrib['direction']
                     field.passengers = fieldName.attrib['passenger'] # maybe change to boolean
                 
-                coords = convertCoordinates(fieldArrayCount, fieldCount, direction, center)
+                # set current fields
+                if fieldArrayCount in (0, 1):
+                    if fieldCount == 2:
+                        field.currentField = True
+                elif fieldArrayCount == 2:
+                    if fieldCount == 1:
+                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "UP_RIGHT") or (segmentDirection == "DOWN_RIGHT" and nextSegmentDirection == "RIGHT"):
+                            field.currentField = True
+                    elif fieldCount == 2:
+                        if segmentDirection == nextSegmentDirection:
+                            field.currentField = True
+                    elif fieldCount == 3:
+                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "DOWN_RIGHT") or (segmentDirection == "UP_RIGHT" and nextSegmentDirection == "RIGHT"):
+                            field.currentField = True
+                elif fieldArrayCount == 3:
+                    if fieldCount == 0:
+                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "UP_RIGHT") or (segmentDirection == "DOWN_RIGHT" and nextSegmentDirection == "RIGHT"):
+                            field.currentField = True
+                    elif fieldCount == 2:
+                        if segmentDirection == nextSegmentDirection:
+                            field.currentField = True
+                    elif fieldCount == 4:
+                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "DOWN_RIGHT") or (segmentDirection == "UP_RIGHT" and nextSegmentDirection == "RIGHT"):
+                            field.currentField = True
+                
+                coords = convertCoordinates(fieldArrayCount, fieldCount, segmentDirection, center)
                 board.setField(coords[0], coords[1], coords[2], field)
     
     # parse ships
