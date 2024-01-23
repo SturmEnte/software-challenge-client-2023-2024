@@ -17,10 +17,24 @@ def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
             r = fieldCount - 2 + center['r']
             s = 1 - fieldArrayCount + center['s']
     elif direction == "UP_RIGHT":
-        pass
+        if fieldCount < 3:
+            r = fieldArrayCount - 1 + center['r']
+            q = fieldCount - 2 + center['q']
+            s = 3 - fieldCount - fieldArrayCount + center['s']
+        else:
+            r = 1 - fieldCount + fieldArrayCount + center['r']
+            q = fieldCount - 2 + center['q']
+            s = 1 - fieldArrayCount + center['s']
     elif direction == "DOWN_RIGHT":
-        pass
-
+        if fieldCount < 3:
+            q = fieldArrayCount - 1 + center['q']
+            s = fieldCount - 2 + center['s']
+            r = 3 - fieldCount - fieldArrayCount + center['r']
+        else:
+            q = 1 - fieldCount + fieldArrayCount + center['q']
+            s = fieldCount - 2 + center['s']
+            r = 1 - fieldArrayCount + center['r']
+    # TODO: implement all other directions, and fix the above ones; only the first one actually works as intended
     return q, r, s
 
 def parseBoard(boardTag, nextDirection):
@@ -76,6 +90,7 @@ def parseBoard(boardTag, nextDirection):
                     elif fieldCount == 4:
                         if (segmentDirection == "RIGHT" and nextSegmentDirection == "DOWN_RIGHT") or (segmentDirection == "UP_RIGHT" and nextSegmentDirection == "RIGHT"):
                             field.currentField = True
+                # TODO: implement other directions of current
                 
                 coords = convertCoordinates(fieldArrayCount, fieldCount, segmentDirection, center)
                 board.setField(coords[0], coords[1], coords[2], field)
