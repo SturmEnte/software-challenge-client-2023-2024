@@ -13,11 +13,18 @@ class State():
             self.player = players[1]
             self.opponent = players[0]
     
-    def setData(self, turn, nextDirection, lastMove):
+    def setData(self, turn, board, nextDirection, players):
         '''Updates all variable state values'''
         self.turn = turn
         self.nextDirection = nextDirection
-        self.board.update(lastMove, self)
+        self.board = board
+        
+        if players[0].team == self.team:
+            self.player = players[0]
+            self.opponent = players[1]
+        else:
+            self.player = players[1]
+            self.opponent = players[0]
     
     def printBoard(self):
         board_2d = {}

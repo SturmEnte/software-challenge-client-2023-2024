@@ -23,13 +23,9 @@ def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
 
     return q, r, s
 
-def parseMementoBoard(state):
-    startTeam = state.attrib['startTeam']
-    boardTag = state.find('board')
-    nextDirection = boardTag.attrib['nextDirection']
+def parseBoard(boardTag, nextDirection):
     board = Board()
 
-    # parse board
     segments = boardTag.findall('segment')
     
     directions = []
@@ -83,10 +79,12 @@ def parseMementoBoard(state):
                 
                 coords = convertCoordinates(fieldArrayCount, fieldCount, segmentDirection, center)
                 board.setField(coords[0], coords[1], coords[2], field)
-    
-    # parse ships
+
+    return board
+
+def parseShips(ships):
     players = []
-    for ship in state.findall('ship'):
+    for ship in ships:
 
         player = Player(
             ship.attrib['team'],
@@ -106,21 +104,33 @@ def parseMementoBoard(state):
         )
 
         players.append(player)
+    
+    return players
+
+def parseMementoStart(state):
+    startTeam = state.attrib['startTeam']
+    boardTag = state.find('board')
+    nextDirection = boardTag.attrib['nextDirection']
+
+    # parse board
+    board = parseBoard(boardTag, nextDirection)
+    
+    # parse ships
+    players = parseShips(state.findall('ship'))
 
     return startTeam, board, nextDirection, players
 
 def parseMemento(state):
-    fishes = []
-    for i in state.find('fishes').findall('int'):
-        fishes.append(int(i.text))
-    lastMove = state.find('lastMove')
-    fr = lastMove.find('from')
-    to = lastMove.find('to')
-    if fr != None:
-        fr = (int(fr.attrib['x']), int(fr.attrib['y']))
-    to = (int(to.attrib['x']), int(to.attrib['y']))
-    lastMove = (fr, to)
-    return fishes, lastMove
+    boardTag = state.find('board')
+    nextDirection = boardTag.attrib['nextDirection']
+
+    # parse board (could be skipped if the board didnt change or maybe just update new parts)
+    board = parseBoard(boardTag, nextDirection)
+
+    # parse ships (could maybe be calculated from lastMove, if we want to use lastMove at all)
+    players = parseShips(state.findall('ship'))
+
+    return board, nextDirection, players
 
 def parseResult(data, fishes):
     if data.find('winner').attrib['team'] == "ONE":

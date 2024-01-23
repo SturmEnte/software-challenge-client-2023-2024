@@ -1,3 +1,5 @@
+from colorama import Back
+
 class Player():
     def __init__(self, team, direction, speed, coal, passengers, freeTurns, points):
         self.team = team
@@ -21,8 +23,9 @@ class Player():
         out = ""
 
         if self.team == "ONE":
-            out = "S1"
+            out = Back.RED + "S1"
         else:
-            out = "S2"
+            out = Back.RED + "S2" # dont know what color to use, as background is already blue
         
+        out += Back.RESET
         return out

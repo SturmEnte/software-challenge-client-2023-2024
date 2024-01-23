@@ -1,7 +1,7 @@
 from network import Connection
 from state import State
 from compute import computeMove
-from parse_xml import parseMemento, parseMementoBoard, parseResult
+from parse_xml import parseMemento, parseMementoStart, parseResult
 from xml.etree.ElementTree import fromstring, tostring
 
 from time import time
@@ -23,11 +23,11 @@ while True:
             xmlState = data.find('state')
             turn = int(xmlState.attrib['turn'])
             if turn == 0:
-                startTeam, board, nextDirection, players = parseMementoBoard(xmlState)
+                startTeam, board, nextDirection, players = parseMementoStart(xmlState)
                 state = State(conn.team, turn, startTeam, board, nextDirection, players)
             else:
-                fishes, lastMove = parseMemento(xmlState)
-                state.setData(turn, fishes, lastMove)
+                board, nextDirection, players = parseMemento(xmlState)
+                state.setData(turn, board, nextDirection, players)
             t2 = time()
             print(f"Zeit: {t2-t1}   Zug: {turn}")
             state.printState()
