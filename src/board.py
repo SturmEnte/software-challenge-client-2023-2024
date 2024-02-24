@@ -11,6 +11,8 @@ class Board():
         self.board[q][r][s] = field
 
     def getField(self, q, r, s):
+        if (q not in self.board) or (r not in self.board[q]):
+            return False
         return self.board[q][r][s]
     
     # old
