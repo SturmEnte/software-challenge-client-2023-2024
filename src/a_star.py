@@ -1,5 +1,3 @@
-# TODO: fix algorithm!!!
-
 class Node():
     possibleNeighbours = [
         (1, 0, -1),
@@ -102,7 +100,9 @@ class AStar():
                 node.parent = current_node
                 index = AStar.positionInNodeList(position, open_nodes)
                 if index != False:
-                    open_nodes.pop(index)
+                    if node.f < open_nodes[index].f:
+                        open_nodes.pop(index)
+                    else:
+                        continue
                 open_nodes.append(node)
         return AStar.getPath(current_node)
-    
