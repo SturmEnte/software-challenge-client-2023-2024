@@ -34,6 +34,33 @@ def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
             s = - 1 + fieldCount - fieldArrayCount + center['s']
             q = - fieldCount + 2 + center['q']
             r = - 1 + fieldArrayCount + center['r']
+    elif direction == "LEFT":
+        if fieldCount < 3:
+            q = - fieldArrayCount + 1 + center['q']
+            r = - fieldCount + 2 + center['r']
+            s = - 3 + fieldCount + fieldArrayCount + center['s']
+        else:
+            q = - 1 + fieldCount - fieldArrayCount + center['q']
+            r = - fieldCount + 2 + center['r']
+            s = - 1 + fieldArrayCount + center['s']
+    elif direction == "DOWN_LEFT":
+        if fieldCount < 3:
+            r = fieldArrayCount - 1 + center['r']
+            s = fieldCount - 2 + center['s']
+            q = 3 - fieldCount - fieldArrayCount + center['q']
+        else:
+            r = 1 - fieldCount + fieldArrayCount + center['r']
+            s = fieldCount - 2 + center['s']
+            q = 1 - fieldArrayCount + center['q']
+    elif direction == "UP_LEFT":
+        if fieldCount < 3:
+            s = fieldArrayCount - 1 + center['s']
+            q = fieldCount - 2 + center['q']
+            r = 3 - fieldCount - fieldArrayCount + center['r']
+        else:
+            s = 1 - fieldCount + fieldArrayCount + center['s']
+            q = fieldCount - 2 + center['q']
+            r = 1 - fieldArrayCount + center['r']
     # TODO: implement all other directions, and fix the above ones; only the first one actually works as intended
     return q, r, s
 

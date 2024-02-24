@@ -3,7 +3,7 @@ from time import time
 from state import State
 from xml.etree.ElementTree import fromstring
 
-with open("../test/memento0.xml", "r") as msg:
+with open("../test/memento1.xml", "r") as msg:
     msg = msg.read()
     print("\nNEW MESSAGE:\n" + msg + "\n" + "-"*35)
 
