@@ -18,24 +18,34 @@ def convertCoordinates(fieldArrayCount, fieldCount, direction, center):
             s = 1 - fieldArrayCount + center['s']
     elif direction == "UP_RIGHT":
         if fieldCount < 3:
-            r = fieldArrayCount - 1 + center['r']
-            q = fieldCount - 2 + center['q']
-            s = 3 - fieldCount - fieldArrayCount + center['s']
+            r = - fieldArrayCount + 1 + center['r']
+            s = - fieldCount + 2 + center['s']
+            q = - 3 + fieldCount + fieldArrayCount + center['q']
         else:
-            r = 1 - fieldCount + fieldArrayCount + center['r']
-            q = fieldCount - 2 + center['q']
-            s = 1 - fieldArrayCount + center['s']
+            r = - 1 + fieldCount - fieldArrayCount + center['r']
+            s = - fieldCount + 2 + center['s']
+            q = - 1 + fieldArrayCount + center['q']
     elif direction == "DOWN_RIGHT":
         if fieldCount < 3:
-            q = fieldArrayCount - 1 + center['q']
-            s = fieldCount - 2 + center['s']
-            r = 3 - fieldCount - fieldArrayCount + center['r']
+            s = - fieldArrayCount + 1 + center['s']
+            q = - fieldCount + 2 + center['q']
+            r = - 3 + fieldCount + fieldArrayCount + center['r']
         else:
-            q = 1 - fieldCount + fieldArrayCount + center['q']
-            s = fieldCount - 2 + center['s']
-            r = 1 - fieldArrayCount + center['r']
+            s = - 1 + fieldCount - fieldArrayCount + center['s']
+            q = - fieldCount + 2 + center['q']
+            r = - 1 + fieldArrayCount + center['r']
     # TODO: implement all other directions, and fix the above ones; only the first one actually works as intended
     return q, r, s
+
+def getCurrentDirection(direction, nextDirection):
+    if (direction == nextDirection):
+        currentDirection = "STRAIGHT"
+    elif (direction == "RIGHT" and nextDirection == "UP_RIGHT") or (direction == "UP_RIGHT" and nextDirection == "UP_LEFT") or (direction == "UP_LEFT" and nextDirection == "LEFT") or (direction == "LEFT" and nextDirection == "DOWN_LEFT") or (direction == "DOWN_LEFT" and nextDirection == "DOWN_RIGHT") or (direction == "DOWN_RIGHT" and nextDirection == "RIGHT"):
+        currentDirection = "UP"
+    else:
+        currentDirection = "DOWN"
+    
+    return currentDirection
 
 def parseBoard(boardTag, nextDirection):
     board = Board()
@@ -51,6 +61,7 @@ def parseBoard(boardTag, nextDirection):
         # direction = segment.attrib['direction']
         segmentDirection = directions[segmentCount]
         nextSegmentDirection = directions[segmentCount+1]
+        currentDirection = getCurrentDirection(segmentDirection, nextSegmentDirection)
         centerTag = segment.find('center')
         center = {"q": int(centerTag.attrib['q']), "r": int(centerTag.attrib['r']), "s": int(centerTag.attrib['s'])}
 
@@ -72,23 +83,23 @@ def parseBoard(boardTag, nextDirection):
                         field.currentField = True
                 elif fieldArrayCount == 2:
                     if fieldCount == 1:
-                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "UP_RIGHT") or (segmentDirection == "DOWN_RIGHT" and nextSegmentDirection == "RIGHT"):
+                        if currentDirection == "UP":
                             field.currentField = True
                     elif fieldCount == 2:
-                        if segmentDirection == nextSegmentDirection:
+                        if currentDirection == "STRAIGHT":
                             field.currentField = True
                     elif fieldCount == 3:
-                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "DOWN_RIGHT") or (segmentDirection == "UP_RIGHT" and nextSegmentDirection == "RIGHT"):
+                        if currentDirection == "DOWN":
                             field.currentField = True
                 elif fieldArrayCount == 3:
                     if fieldCount == 0:
-                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "UP_RIGHT") or (segmentDirection == "DOWN_RIGHT" and nextSegmentDirection == "RIGHT"):
+                        if currentDirection == "UP":
                             field.currentField = True
                     elif fieldCount == 2:
-                        if segmentDirection == nextSegmentDirection:
+                        if currentDirection == "STRAIGHT":
                             field.currentField = True
                     elif fieldCount == 4:
-                        if (segmentDirection == "RIGHT" and nextSegmentDirection == "DOWN_RIGHT") or (segmentDirection == "UP_RIGHT" and nextSegmentDirection == "RIGHT"):
+                        if currentDirection == "DOWN":
                             field.currentField = True
                 # TODO: implement other directions of current
                 
