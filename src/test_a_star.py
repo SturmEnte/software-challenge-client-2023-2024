@@ -17,7 +17,7 @@ with open("../test/memento1.xml", "r") as msg:
 
     board = parseBoard(boardTag, nextDirection)
 
-    path = AStar.run(board, (0, 0, 0), (15, -24, 9))
+    path = AStar.run(board, (0, 0, 0), (16, -26, 10))
 
     # visualize path
     for field in path:

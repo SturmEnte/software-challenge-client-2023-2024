@@ -86,7 +86,7 @@ class AStar():
             for position, neighbour_field in current_node.getNeighbours(board):
                 
                 # if node is an obstacle skip
-                if neighbour_field.type != "water":
+                if neighbour_field.type != "water" and neighbour_field.type != "goal":
                     continue
 
                 # if node is already closed skip
