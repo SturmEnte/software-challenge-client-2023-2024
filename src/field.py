@@ -22,6 +22,8 @@ class Field():
             out = Back.GREEN + "IS"
         elif self.type == "passenger":
             out = Back.YELLOW + "P" + str(self.passengers)
+        elif self.type == "goal":
+            out = Back.BLACK + "$$"
         elif self.type == "path":                           # only for testing purposes
             out = Back.RED + "!!"                           #
         out += Back.RESET
