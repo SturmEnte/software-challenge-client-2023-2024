@@ -95,7 +95,12 @@ class AStar():
 
                 # create new node object
                 g_cost = AStar.getDistance(position, start)
-                h_cost = AStar.getDistance(position, target)
+                h_cost = current_node.h + 1 # distance from field to field
+
+                # make h_cost greater, if it is a current field
+                if neighbour_field.currentField:
+                    h_cost += 1
+
                 node = Node(h_cost, g_cost, position)
                 node.parent = current_node
                 index = AStar.positionInNodeList(position, open_nodes)
