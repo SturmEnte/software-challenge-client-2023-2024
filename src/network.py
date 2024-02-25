@@ -42,10 +42,9 @@ class Connection():
         
     def sendMove(self, move):
         xml = f'<room roomId="{self.roomId}"><data class="move"><actions>'
-        for actions in move.actions:
-            pass # TODO: implement move stuff
-
-        xml += '<advance distance="1" />' # temporary
+        
+        for action in move.actions:
+            xml += action
 
         xml += '</actions></data></room>'
         self.send(xml)

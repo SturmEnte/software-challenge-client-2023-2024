@@ -1,4 +1,3 @@
-from random import choice
 from move import Move
 
 from a_star import AStar
