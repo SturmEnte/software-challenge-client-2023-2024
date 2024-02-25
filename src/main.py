@@ -12,7 +12,7 @@ conn.join()
 while True:
     msgList = conn.recvGameplay()
     for msg in msgList:
-        print("\nNEW MESSAGE:\n" + tostring(msg).decode("utf-8") + "\n" + "-"*35)
+        # print("\nNEW MESSAGE:\n" + tostring(msg).decode("utf-8") + "\n" + "-"*35)
         data = msg.find('data')
         msgType = data.attrib['class']
         if msgType == "moveRequest":

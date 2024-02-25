@@ -18,6 +18,10 @@ class Move():
         '''The direction you want to push the opponent, if you get onto the same field.'''
         self.actions.append(f'<push direction="{direction}" />')
     
+    def undo(self):
+        '''removes the last action from the move'''
+        self.actions.pop(-1)
+    
     def __repr__(self) -> str:
         out = "<actions>\n"
         for action in self.actions:

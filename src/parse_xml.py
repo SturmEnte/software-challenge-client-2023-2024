@@ -135,7 +135,7 @@ def parseBoard(boardTag, nextDirection):
                 board.setField(coords[0], coords[1], coords[2], field)
 
                 # check for farthest field
-                if segmentCount == segmentsCount and fieldArrayCount == 3:
+                if segmentCount == segmentsCount - 1 and fieldArrayCount == 3:
                     if field.currentField:
                         board.farthestField = coords
 
@@ -148,11 +148,11 @@ def parseShips(ships):
         player = Player(
             ship.attrib['team'],
             ship.attrib['direction'],
-            ship.attrib['speed'],
-            ship.attrib['coal'],
-            ship.attrib['passengers'],
-            ship.attrib['freeTurns'],
-            ship.attrib['points']
+            int(ship.attrib['speed']),
+            int(ship.attrib['coal']),
+            int(ship.attrib['passengers']),
+            int(ship.attrib['freeTurns']),
+            int(ship.attrib['points'])
         )
 
         position = ship.find('position')
