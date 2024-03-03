@@ -1,6 +1,7 @@
 # TODO: make player unable to go through opponent (not allowed)
 # TODO: push action when move ends on opponent
 # TODO: calculate movement points, while repecting push move
+# TODO: manage coal when turning
 
 from move import Move
 from a_star import AStar
@@ -46,8 +47,8 @@ def computeMove(state):
     # convert path to move
     currentDirection = state.player.direction
     lastAdvance = 0
-    pos = state.player.getPosition()
-    onCurrentField = state.board.getField(pos[0], pos[1], pos[2]).currentField
+    # pos = state.player.getPosition()
+    onCurrentField = False
     for i, field in enumerate(path[1:]):
         # TODO: check for push move
         
@@ -66,10 +67,6 @@ def computeMove(state):
                 freeTurns = 0
             
             currentDirection = fieldVector
-        
-        # end move if acceleration will be 1 or more OR the speed will be more than 6
-        if movementPoints <= -1 or state.player.speed - movementPoints > 6:
-            break
 
         # calculate movement points for passing current fields
         if state.board.getField(field[0], field[1], field[2]).currentField:
@@ -78,10 +75,11 @@ def computeMove(state):
                 movementPoints -= 2
 
                 # dont perform move, if coal would be needed for acceleration or speed would be too high
-                if movementPoints == -2 or state.player.speed - movementPoints > 6:
+                if movementPoints == -2 or state.player.speed - movementPoints >= 6:
                     movementPoints += 2
                     break
-
+            else:
+                movementPoints -= 1
 
         else:
             onCurrentField = False
@@ -95,7 +93,8 @@ def computeMove(state):
         else:
             move.advance(1)
 
-        if movementPoints <= -1 or state.player.speed - movementPoints > 6:
+        # end move if acceleration will be 1 or more OR the speed will be more than 6
+        if movementPoints <= -1 or state.player.speed - movementPoints >= 6:
             break
     
     # calculate acceleration action
