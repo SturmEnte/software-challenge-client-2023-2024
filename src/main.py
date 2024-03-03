@@ -1,8 +1,9 @@
 from network import Connection
 from state import State
 from compute import computeMove
-from parse_xml import parseMemento, parseMementoStart, parseResult
+from parse_xml import parseMemento, parseMementoStart, parseResult, parseError
 from xml.etree.ElementTree import fromstring, tostring
+import os.path
 
 from time import time
 
@@ -34,7 +35,13 @@ while True:
         elif msgType == "welcomeMessage":
             conn.team = data.attrib['color']
         elif msgType == "result":
-            print(parseResult(data, state.fishes))
+            result, csv = parseResult(data, state)
+            print(result)
+            if os.path.isfile("../test/result.csv"):
+                with open("../test/result.csv", "a") as f:
+                    f.write("\n"+csv)
             exit()
+        elif msgType == "error":
+            print(parseError(data))
         else:
             print("ERROR! UNKNOWN MESSAGE: "+msgType)

@@ -191,14 +191,54 @@ def parseMemento(state):
 
     return board, nextDirection, players
 
-def parseResult(data, fishes):
+def parseResult(data, state):
+    score_one = data.find('scores').findall('entry')[0]
+    score_two = data.find('scores').findall('entry')[1]
+
     if data.find('winner').attrib['team'] == "ONE":
-        team = "1"
-        color = "\033[31m"
-        playername = data.find('scores').findall('entry')[0].find('player').attrib['name']
+        team = "ONE"
+        playername = score_one.find('player').attrib['name']
     else:
-        team = "2"
-        color = "\033[34m"
-        playername = data.find('scores').findall('entry')[1].find('player').attrib['name']
+        team = "TWO"
+        playername = score_two.find('player').attrib['name']
     
-    return f'\n\n\033[1mGEWINNER: {color}{playername} (Team {team})\033[0m\n\033[1mFISCHE: {fishes[0]}:{fishes[1]}'
+    if state.team == "ONE":
+        our_score = score_one
+        opponent_score = score_two
+    else:
+        our_score = score_two
+        opponent_score = score_one
+
+    cause = our_score.find('score').attrib['cause']
+    reason = our_score.find('score').attrib['reason']
+
+    our_stats = our_score.find('score').findall('part')
+    opponent_stats = opponent_score.find('score').findall('part')
+    
+    csv = f'{state.startTeam},{state.team},{state.opponent.team},{team},{cause},{our_stats[0].text},{our_stats[1].text},{our_stats[2].text},{our_stats[3].text},{opponent_stats[0].text},{opponent_stats[1].text},{opponent_stats[2].text},{opponent_stats[3].text},{reason}'
+    
+    result = f'''--------------Result---------------
+WINNER: {playername} (Team {team})
+
+Cause: {cause}
+Reason: {reason}
+
+----------Player----------
+Siegespunkte: {our_stats[0].text}
+Punkte:       {our_stats[1].text}
+Kohle:        {our_stats[2].text}
+Gewonnen:     {our_stats[3].text}
+
+---------Opponent---------
+Siegespunkte: {opponent_stats[0].text}
+Punkte:       {opponent_stats[1].text}
+Kohle:        {opponent_stats[2].text}
+Gewonnen:     {opponent_stats[3].text}
+
+-----------------------------------'''
+
+    return result, csv
+
+def parseError(data):
+    message = data.attrib['message']
+    return f'---------------Error---------------\nError message from server:\n{message}\n-----------------------------------'

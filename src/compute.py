@@ -2,6 +2,7 @@
 # TODO: push action when move ends on opponent
 # TODO: calculate movement points, while repecting push move
 # TODO: manage coal when turning
+# TODO: prevent ship from reaching speeds below 1
 
 from move import Move
 from a_star import AStar
