@@ -1,3 +1,7 @@
+# TODO: make player unable to go through opponent (not allowed)
+# TODO: push action when move ends on opponent
+# TODO: calculate movement points, while repecting push move
+
 from move import Move
 from a_star import AStar
 
@@ -42,6 +46,8 @@ def computeMove(state):
     # convert path to move
     currentDirection = state.player.direction
     lastAdvance = 0
+    pos = state.player.getPosition()
+    onCurrentField = state.board.getField(pos[0], pos[1], pos[2]).currentField
     for i, field in enumerate(path[1:]):
         # TODO: check for push move
         
@@ -50,23 +56,39 @@ def computeMove(state):
         if fieldVector != currentDirection:
             move.turn(fieldVector)
             lastAdvance = 0
+            onCurrentField = False
 
             # calculate coal needed for turn
             directionDifference = getVectorDifference(fieldVector, currentDirection)
             freeTurns -= directionDifference
             if freeTurns < 0:
-                movementPoints += freeTurns
                 coalNeeded -= freeTurns
                 freeTurns = 0
             
             currentDirection = fieldVector
         
+        # end move if acceleration will be 1 or more OR the speed will be more than 6
         if movementPoints <= -1 or state.player.speed - movementPoints > 6:
             break
-        
+
+        # calculate movement points for passing current fields
+        if state.board.getField(field[0], field[1], field[2]).currentField:
+            if not onCurrentField:
+                onCurrentField = True
+                movementPoints -= 2
+
+                # dont perform move, if coal would be needed for acceleration or speed would be too high
+                if movementPoints == -2 or state.player.speed - movementPoints > 6:
+                    movementPoints += 2
+                    break
+
+
+        else:
+            onCurrentField = False
+            movementPoints -= 1
+
         # advance 1 / extend last advance by 1
         lastAdvance += 1
-        movementPoints -= 1
         if lastAdvance > 1:
             move.undo()
             move.advance(lastAdvance)
@@ -78,7 +100,8 @@ def computeMove(state):
     
     # calculate acceleration action
     acceleration = - movementPoints
-    move.acceleration(acceleration)
+    if acceleration != 0:
+        move.acceleration(acceleration)
 
     print(f"movementPoints: {movementPoints}, freeTurns: {freeTurns}, coalNeeded: {coalNeeded}")
     print(move)
