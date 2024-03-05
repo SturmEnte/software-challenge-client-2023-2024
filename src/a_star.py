@@ -100,6 +100,9 @@ class AStar():
                 # make h_cost greater, if it is a current field
                 if neighbour_field.currentField:
                     h_cost += 1
+                
+                # make h_cost greater, if you need to turn
+                # TODO: implement rotation
 
                 node = Node(h_cost, g_cost, position)
                 node.parent = current_node
