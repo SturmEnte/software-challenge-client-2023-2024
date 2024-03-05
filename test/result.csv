@@ -1,0 +1,7 @@
+Start Team,Unser Team,Gegner Team,Sieger,Grund,Unsere Siegpunkte,Unsere Punkte,Unsere Kohle,Unser Gewonnen,Gegner Siegpunkte,Gegner Punkte,Gegner Kohle,Gegner Gewonnen,Beschreibung
+ONE,TWO,ONE,ONE,RULE_VIOLATION,0,26,0,0,2,20,8,0,Nicht genug Kohle für Drehung.
+ONE,TWO,ONE,ONE,RULE_VIOLATION,0,33,0,0,2,21,12,0,Nicht genug Kohle für Drehung.
+ONE,TWO,ONE,ONE,RULE_VIOLATION,0,22,0,0,2,21,10,0,Nicht genug Kohle für Drehung.
+ONE,TWO,ONE,TWO,REGULAR,2,20,10,0,0,8,8,0,
+ONE,TWO,ONE,ONE,RULE_VIOLATION,0,10,10,0,2,16,12,0,Nicht genug Bewegungspunkte für notwendige nachfolgende Abdrängaktion.
+ONE,TWO,ONE,ONE,RULE_VIOLATION,0,38,0,0,2,31,12,0,Die minimale Geschwindigkeit von 1 darf nicht unterschritten werden.

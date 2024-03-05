@@ -1,0 +1,270 @@
+<room roomId="60754003-d687-40ba-9304-f9f864fb0e68">
+  <data class="memento">
+    <state class="state" startTeam="TWO" turn="15" currentTeam="TWO">
+      <board nextDirection="RIGHT">
+        <segment direction="RIGHT">
+          <center q="0" r="0" s="0"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="RIGHT">
+          <center q="4" r="0" s="-4"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <passenger direction="DOWN_LEFT" passenger="1"/>
+            <water/>
+            <water/>
+            <water/>
+            <island/>
+          </field-array>
+          <field-array>
+            <island/>
+            <water/>
+            <water/>
+            <water/>
+            <island/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="DOWN_RIGHT">
+          <center q="4" r="4" s="-8"/>
+          <field-array>
+            <water/>
+            <island/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <island/>
+            <island/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <passenger direction="RIGHT" passenger="1"/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="RIGHT">
+          <center q="8" r="4" s="-12"/>
+          <field-array>
+            <water/>
+            <water/>
+            <passenger direction="DOWN_RIGHT" passenger="1"/>
+            <island/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <island/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="UP_RIGHT">
+          <center q="12" r="0" s="-12"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <island/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <passenger direction="LEFT" passenger="1"/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <island/>
+            <island/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="RIGHT">
+          <center q="16" r="0" s="-16"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <island/>
+            <island/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="DOWN_RIGHT">
+          <center q="16" r="4" s="-20"/>
+          <field-array>
+            <water/>
+            <island/>
+            <passenger direction="DOWN_LEFT" passenger="1"/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <island/>
+            <water/>
+            <water/>
+            <island/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="RIGHT">
+          <center q="20" r="4" s="-24"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <island/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <island/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <goal/>
+            <goal/>
+            <goal/>
+            <water/>
+          </field-array>
+        </segment>
+      </board>
+      <ship team="ONE" direction="DOWN_RIGHT" speed="5" coal="5" passengers="0" freeTurns="1" points="30">
+        <position q="18" r="1" s="-19"/>
+      </ship>
+      <ship team="TWO" direction="DOWN_RIGHT" speed="3" coal="1" passengers="0" freeTurns="1" points="13">
+        <position q="3" r="6" s="-9"/>
+      </ship>
+      <lastMove>
+        <actions>
+          <turn direction="RIGHT"/>
+          <advance distance="2"/>
+          <turn direction="DOWN_RIGHT"/>
+          <advance distance="3"/>
+        </actions>
+      </lastMove>
+    </state>
+  </data>
+</room>

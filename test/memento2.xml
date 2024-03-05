@@ -1,0 +1,83 @@
+<room roomId="87861f34-2706-4a26-b155-523b67d6fbca">
+  <data class="memento">
+    <state class="state" startTeam="TWO" turn="1" currentTeam="TWO">
+      <board nextDirection="DOWN_RIGHT">
+        <segment direction="RIGHT">
+          <center q="0" r="0" s="0"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+        <segment direction="RIGHT">
+          <center q="4" r="0" s="-4"/>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <island/>
+            <island/>
+            <island/>
+            <water/>
+          </field-array>
+          <field-array>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+            <water/>
+          </field-array>
+        </segment>
+      </board>
+      <ship team="ONE" direction="DOWN_RIGHT" speed="2" coal="6" passengers="0" freeTurns="1" points="2">
+        <position q="1" r="-1" s="0"/>
+      </ship>
+      <ship team="TWO" direction="RIGHT" speed="1" coal="6" passengers="0" freeTurns="1" points="0">
+        <position q="-2" r="1" s="1"/>
+      </ship>
+      <lastMove>
+        <actions>
+          <acceleration acc="1"/>
+          <advance distance="2"/>
+          <turn direction="DOWN_RIGHT"/>
+        </actions>
+      </lastMove>
+    </state>
+  </data>
+</room>
