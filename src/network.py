@@ -7,9 +7,9 @@ class Connection():
         contains:
         self.roomId
         self.team'''
-    def __init__(self):
+    def __init__(self, host = "localhost", port = 13050):
         self.socket = socket()
-        self.socket.connect(('localhost', 13050))
+        self.socket.connect((host, port))
         
         self.roomId = None
         self.team = None
@@ -34,9 +34,16 @@ class Connection():
                 break
         return data.decode()
     
-    def join(self):
+    def join(self, reservation_code=None, room_id=None):
         '''Join a Game on localhost 13050 without roomId or reservationCode'''
-        self.send('<protocol><join/>')
+
+        if reservation_code != None:
+            self.send('<protocol><joinPrepared reservationCode="{}" />'.format(reservation_code))
+        elif room_id != None:
+            self.send('<protocol><joinRoom roomId="{}" />'.format(room_id))
+        else:
+            self.send('<protocol><join/>')
+
         joinedMsg = self.recv()[11:]
         self.roomId = fromstring(joinedMsg).attrib['roomId']
         

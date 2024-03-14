@@ -2,13 +2,37 @@ from network import Connection
 from state import State
 from compute import computeMove
 from parse_xml import parseMemento, parseMementoStart, parseResult, parseError
+
 from xml.etree.ElementTree import fromstring, tostring
 import os.path
-
+import sys
 from time import time
 
-conn = Connection()
-conn.join()
+# Default values
+host = "localhost"
+port = 13050
+reservation_code = None
+
+# Check the arguments for new values
+for i, arg in enumerate(sys.argv):
+
+    if arg == "--host" or arg == "-h":
+        host = sys.argv[i+1]
+
+    elif arg == "--port" or arg == "-p":
+        port = int(sys.argv[i+1])
+
+    elif arg == "--reservation" or arg == "-r":
+        reservation_code = sys.argv[i+1]
+
+print("Host:", host)
+print("Port:", port)
+print("Reservation Code:", reservation_code)
+
+conn = Connection(host=host, port=port)
+conn.join(reservation_code=reservation_code)
+
+print("Connected and joined room:", conn.roomId)
 
 while True:
     msgList = conn.recvGameplay()
