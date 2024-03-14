@@ -125,9 +125,11 @@ def computeMove(state):
                     continue
                     
                 # if this isn't the field behind the opponent (against the rules)
-                relative_coords = neighboursDictReversed[state.opponent.direction]
-                pos = state.player.getPosition()
-                if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                # relative_coords = neighboursDictReversed[state.opponent.direction]
+                # pos = state.player.getPosition()
+                # if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                #     continue
+                if position == state.player.getPosition():
                     continue
 
                 direction = getFieldVector(state.opponent.getPosition(), position)
@@ -143,9 +145,11 @@ def computeMove(state):
                         continue
                         
                     # if this isn't the field behind the opponent (against the rules)
-                    relative_coords = neighboursDictReversed[state.opponent.direction]
-                    pos = state.player.getPosition()
-                    if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                    # relative_coords = neighboursDictReversed[state.opponent.direction]
+                    # pos = state.player.getPosition()
+                    # if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                    #     continue
+                    if position == state.player.getPosition():
                         continue
 
                     direction = getFieldVector(state.opponent.getPosition(), position)

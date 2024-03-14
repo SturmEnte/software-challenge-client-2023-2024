@@ -195,7 +195,9 @@ def parseResult(data, state):
     score_one = data.find('scores').findall('entry')[0]
     score_two = data.find('scores').findall('entry')[1]
 
-    if data.find('winner').attrib['team'] == "ONE":
+    winner = data.find('winner')
+
+    if winner.attrib['team'] == "ONE":
         team = "ONE"
         playername = score_one.find('player').attrib['name']
     else:
@@ -209,31 +211,31 @@ def parseResult(data, state):
         our_score = score_two
         opponent_score = score_one
 
-    cause = our_score.find('score').attrib['cause']
-    reason = our_score.find('score').attrib['reason']
+    
+
+    regular = winner.attrib['regular']
+    reason = winner.attrib['reason']
 
     our_stats = our_score.find('score').findall('part')
     opponent_stats = opponent_score.find('score').findall('part')
     
-    csv = f'{state.startTeam},{state.team},{state.opponent.team},{team},{cause},{our_stats[0].text},{our_stats[1].text},{our_stats[2].text},{our_stats[3].text},{opponent_stats[0].text},{opponent_stats[1].text},{opponent_stats[2].text},{opponent_stats[3].text},{reason}'
+    csv = f'{state.startTeam},{state.team},{state.opponent.team},{team},{regular},{our_stats[0].text},{our_stats[1].text},{our_stats[2].text},{opponent_stats[0].text},{opponent_stats[1].text},{opponent_stats[2].text},{reason}'
     
     result = f'''--------------Result---------------
 WINNER: {playername} (Team {team})
 
-Cause: {cause}
+Regular: {regular}
 Reason: {reason}
 
 ----------Player----------
 Siegespunkte: {our_stats[0].text}
 Punkte:       {our_stats[1].text}
-Kohle:        {our_stats[2].text}
-Gewonnen:     {our_stats[3].text}
+Passagiere:   {our_stats[2].text}
 
 ---------Opponent---------
 Siegespunkte: {opponent_stats[0].text}
 Punkte:       {opponent_stats[1].text}
-Kohle:        {opponent_stats[2].text}
-Gewonnen:     {opponent_stats[3].text}
+Passagiere:   {opponent_stats[2].text}
 
 -----------------------------------'''
 
