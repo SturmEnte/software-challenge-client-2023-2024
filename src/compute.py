@@ -113,16 +113,17 @@ def computeMove(state):
             movementPoints -= 1
             node = Node(0, 0, state.opponent.getPosition())
             direction = "LEFT"
+            directionFound = False
             for position, neighbour_field in node.getNeighbours(state.board):
-                
+                   
                 # if field is not an obstacle
                 if neighbour_field.type != "water":
                     continue
-                
+                    
                 # if we wont traverse this field in the future
                 if position in path[i:]:
                     continue
-                
+                    
                 # if this isn't the field behind the opponent (against the rules)
                 relative_coords = neighboursDictReversed[state.opponent.direction]
                 pos = state.player.getPosition()
@@ -130,6 +131,26 @@ def computeMove(state):
                     continue
 
                 direction = getFieldVector(state.opponent.getPosition(), position)
+                directionFound = True
+                break
+
+            # if no field is suitable, use a field that will be in our path
+            if not directionFound:
+                for position, neighbour_field in node.getNeighbours(state.board):
+                    
+                    # if field is not an obstacle
+                    if neighbour_field.type != "water":
+                        continue
+                        
+                    # if this isn't the field behind the opponent (against the rules)
+                    relative_coords = neighboursDictReversed[state.opponent.direction]
+                    pos = state.player.getPosition()
+                    if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                        continue
+
+                    direction = getFieldVector(state.opponent.getPosition(), position)
+                    directionFound = True
+                    break
 
             move.push(direction)
 
