@@ -7,6 +7,8 @@
 from move import Move
 from a_star import AStar
 
+MAX_SPEED = 4
+
 neighboursDict = {
     (1, 0, -1): "RIGHT",
     (1, -1, 0): "UP_RIGHT",
@@ -76,7 +78,7 @@ def computeMove(state):
                 movementPoints -= 2
 
                 # dont perform move, if coal would be needed for acceleration or speed would be too high
-                if movementPoints == -2 or state.player.speed - movementPoints >= 6:
+                if movementPoints == -2 or state.player.speed - movementPoints >= MAX_SPEED:
                     movementPoints += 2
                     break
             else:
@@ -94,8 +96,8 @@ def computeMove(state):
         else:
             move.advance(1)
 
-        # end move if acceleration will be 1 or more OR the speed will be more than 6
-        if movementPoints <= -1 or state.player.speed - movementPoints >= 6:
+        # end move if acceleration will be 1 or more OR the speed will be more than MAX_SPEED
+        if movementPoints <= -1 or state.player.speed - movementPoints >= MAX_SPEED:
             break
     
     # calculate acceleration action
