@@ -1,11 +1,8 @@
-# TODO: make player unable to go through opponent (not allowed)
-# TODO: push action when move ends on opponent
-# TODO: calculate movement points, while repecting push move
 # TODO: manage coal when turning
 # TODO: prevent ship from reaching speeds below 1
 
 from move import Move
-from a_star import AStar
+from a_star import AStar, Node
 
 MAX_SPEED = 4
 
@@ -16,6 +13,15 @@ neighboursDict = {
     (-1, 0, 1): "LEFT",
     (-1, 1, 0): "DOWN_LEFT",
     (0, 1, -1): "DOWN_RIGHT"
+}
+
+neighboursDictReversed = {
+    "RIGHT": (1, 0, -1),
+    "UP_RIGHT": (1, -1, 0),
+    "UP_LEFT": (0, -1, 1),
+    "LEFT": (-1, 0, 1),
+    "DOWN_LEFT": (-1, 1, 0),
+    "DOWN_RIGHT": (0, 1, -1)
 }
 
 vectorDifferenceDict = {
@@ -53,7 +59,6 @@ def computeMove(state):
     # pos = state.player.getPosition()
     onCurrentField = False
     for i, field in enumerate(path[1:]):
-        # TODO: check for push move
         
         # check if ship needs to turn
         fieldVector = getFieldVector(path[i], field)
@@ -88,6 +93,12 @@ def computeMove(state):
             onCurrentField = False
             movementPoints -= 1
 
+        # check for push move
+        doPushMove = False
+        if state.opponent.getPosition() == field:
+            doPushMove = True
+        # TODO: check when pushmove could be left out to save 1 coal
+
         # advance 1 / extend last advance by 1
         lastAdvance += 1
         if lastAdvance > 1:
@@ -95,6 +106,32 @@ def computeMove(state):
             move.advance(lastAdvance)
         else:
             move.advance(1)
+
+        # perform push move
+        if doPushMove:
+            lastAdvance = 0
+            movementPoints -= 1
+            node = Node(0, 0, state.opponent.getPosition())
+            direction = "LEFT"
+            for position, neighbour_field in node.getNeighbours(state.board):
+                
+                # if field is not an obstacle
+                if neighbour_field.type != "water":
+                    continue
+                
+                # if we wont traverse this field in the future
+                if position in path[i:]:
+                    continue
+                
+                # if this isn't the field behind the opponent (against the rules)
+                relative_coords = neighboursDictReversed[state.opponent.direction]
+                pos = state.player.getPosition()
+                if position == (-relative_coords[0] + pos[0], -relative_coords[1] + pos[1], -relative_coords[2] + pos[2]):
+                    continue
+
+                direction = getFieldVector(state.opponent.getPosition(), position)
+
+            move.push(direction)
 
         # end move if acceleration will be 1 or more OR the speed will be more than MAX_SPEED
         if movementPoints <= -1 or state.player.speed - movementPoints >= MAX_SPEED:

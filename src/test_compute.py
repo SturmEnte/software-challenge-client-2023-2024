@@ -4,7 +4,7 @@ from state import State
 from xml.etree.ElementTree import fromstring
 from compute import computeMove
 
-with open("../test/memento5.xml", "r") as msg:
+with open("../test/memento6.xml", "r") as msg:
     msg = msg.read()
     print("\nNEW MESSAGE:\n" + msg + "\n" + "-"*35)
 
