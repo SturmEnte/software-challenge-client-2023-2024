@@ -101,7 +101,7 @@ def computeMove(state):
             break
     
     # calculate acceleration action
-    acceleration = - movementPoints
+    acceleration = -movementPoints
     if acceleration != 0:
         move.acceleration(acceleration)
 
