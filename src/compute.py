@@ -2,6 +2,7 @@
 # TODO: prevent ship from reaching speeds below 1
 
 from move import Move
+from random import choice
 from a_star import AStar, Node
 
 MAX_SPEED = 4
@@ -43,6 +44,33 @@ def getFieldVector(pos1: tuple, pos2: tuple):
 
 def getVectorDifference(vec1: str, vec2: str):
     return min(abs(vectorDifferenceDict[vec1][0] - vectorDifferenceDict[vec2][0]), abs(vectorDifferenceDict[vec1][1] - vectorDifferenceDict[vec2][1]))
+
+def getPossibleMoves(state):
+    min_speed = state.player.speed - 1
+    if min_speed < 1:
+        min_speed = 1
+    
+    max_speed = state.player.speed + 1
+    if max_speed > MAX_SPEED:
+        max_speed = MAX_SPEED
+    
+    pmvs = getPossibleMovesRecursive(state.player.getPosition(), state.player.direction, state.player.coal, state.player.freeTurns, min_speed, max_speed)
+
+    return pmvs
+
+def getPossibleMovesRecursive(position, direction, coal, free_turns, min_speed, max_speed):
+    node = Node(0, 0, position)
+    for pos, field in node.getNeighbours():
+        if field.type != "water":
+            continue
+
+        field_vector = getFieldVector(position, pos)
+        if field_vector != direction:
+            free_turns -= getVectorDifference(direction, field_vector)
+            if free_turns < 0:
+                coal -= free_turns
+                free_turns = 0
+                
 
 def computeMove(state):
     move = Move()
@@ -166,7 +194,22 @@ def computeMove(state):
     acceleration = -movementPoints
     if acceleration != 0:
         move.acceleration(acceleration)
+        coalNeeded += abs(acceleration) - 1
+    
+    # check if move is possible
+    move_possible = True
 
+    # check for minimum speed
+    if state.player.speed - acceleration < 1 or len(path) <= 1:
+        move_possible = False
+    
+    # check for coal requirement
+    elif coalNeeded < state.player.coal:
+        move_possible = False
+
+    if not move_possible:
+        move = getPossibleMoves(state).choice()
+    
     print(f"movementPoints: {movementPoints}, freeTurns: {freeTurns}, coalNeeded: {coalNeeded}")
     print(move)
 
