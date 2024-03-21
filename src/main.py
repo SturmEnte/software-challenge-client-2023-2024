@@ -1,3 +1,5 @@
+#!/bin/python3
+
 from network import Connection
 from state import State
 from compute import computeMove
