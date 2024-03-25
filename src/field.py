@@ -1,4 +1,20 @@
-from colorama import Back
+try:
+    from colorama import Back
+    GREEN = Back.GREEN
+    YELLOW = Back.YELLOW
+    BLACK = Back.BLACK
+    RED = Back.RED
+    BLUE = Back.BLUE
+    LIGHTCYAN = Back.LIGHTCYAN_EX
+    RESET = Back.RESET
+except:
+    GREEN = ""
+    YELLOW = ""
+    BLACK = ""
+    RED = ""
+    BLUE = ""
+    LIGHTCYAN = ""
+    RESET = ""
 
 class Field():
     def __init__(self, type, passengerDirection=None, passengers=0):
@@ -14,17 +30,17 @@ class Field():
         out = "XX"
         if self.type == "water":
             if self.currentField:
-                out = Back.LIGHTCYAN_EX
+                out = LIGHTCYAN
             else:
-                out = Back.BLUE
+                out = BLUE
             out += "~~"
         elif self.type == "island":
-            out = Back.GREEN + "IS"
+            out = GREEN + "IS"
         elif self.type == "passenger":
-            out = Back.YELLOW + "P" + str(self.passengers)
+            out = YELLOW + "P" + str(self.passengers)
         elif self.type == "goal":
-            out = Back.BLACK + "$$"
+            out = BLACK + "$$"
         elif self.type == "path":                           # only for testing purposes
-            out = Back.RED + "!!"                           #
-        out += Back.RESET
+            out = RED + "!!"                           #
+        out += RESET
         return out

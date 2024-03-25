@@ -1,4 +1,10 @@
-from colorama import Back
+try:
+    from colorama import Back
+    RED = Back.RED
+    RESET = Back.RESET
+except:
+    RED = ""
+    RESET = ""
 
 class Player():
     def __init__(self, team, direction, speed, coal, passengers, freeTurns, points):
