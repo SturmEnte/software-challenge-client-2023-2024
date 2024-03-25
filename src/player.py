@@ -29,9 +29,9 @@ class Player():
         out = ""
 
         if self.team == "ONE":
-            out = Back.RED + "S1"
+            out = RED + "S1"
         else:
-            out = Back.RED + "S2" # dont know what color to use, as background is already blue
+            out = RED + "S2" # dont know what color to use, as background is already blue
         
-        out += Back.RESET
+        out += RESET
         return out
