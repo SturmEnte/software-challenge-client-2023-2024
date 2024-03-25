@@ -1,3 +1,5 @@
+from random import choice
+
 class Board():
     def __init__(self):
         '''Board class'''
@@ -14,6 +16,16 @@ class Board():
         if (q not in self.board) or (r not in self.board[q]):
             return False
         return self.board[q][r][s]
+    
+    def getRandomCoords(self):
+        field_type = "not water"
+        while field_type != "water":
+            q, r_dict = choice(list(self.board.items()))
+            r, s_dict = choice(list(r_dict.items()))
+            s, field = choice(list(s_dict.items()))
+            field_type = field.type
+            print(field.type)
+        return q, r, s
     
     # old
     def update(self, move, state):

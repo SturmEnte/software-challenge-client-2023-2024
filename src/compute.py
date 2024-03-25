@@ -70,16 +70,15 @@ def getPossibleMovesRecursive(position, direction, coal, free_turns, min_speed, 
             if free_turns < 0:
                 coal -= free_turns
                 free_turns = 0
-                
 
-def computeMove(state):
+def getAStarMove(state, start, end):
     move = Move()
     coalNeeded = 0
     freeTurns = state.player.freeTurns
     movementPoints = state.player.speed
 
     # for now we just try to get as far as possible
-    path = AStar.run(state.board, positionDictToTuple(state.player.position), state.board.farthestField)
+    path = AStar.run(state.board, start, end)
 
     # convert path to move
     currentDirection = state.player.direction
@@ -200,17 +199,28 @@ def computeMove(state):
     move_possible = True
 
     # check for minimum speed
-    if state.player.speed - acceleration < 1 or len(path) <= 1:
+    if state.player.speed + acceleration < 1:
         move_possible = False
     
     # check for coal requirement
-    elif coalNeeded < state.player.coal:
+    elif coalNeeded > state.player.coal:
         move_possible = False
-
-    if not move_possible:
-        move = getPossibleMoves(state).choice()
     
-    print(f"movementPoints: {movementPoints}, freeTurns: {freeTurns}, coalNeeded: {coalNeeded}")
+    return move, move_possible
+
+def getRandomMove(state):
+    return getAStarMove(state, positionDictToTuple(state.player.position), state.board.getRandomCoords())
+    
+def getBestMove(state):
+    return getAStarMove(state, positionDictToTuple(state.player.position), state.board.farthestField)
+
+def computeMove(state):
+    move, move_possible = getBestMove(state)
+
+    while not move_possible:
+        move, move_possible = getRandomMove(state)
+
+    # print(f"movementPoints: {movementPoints}, freeTurns: {freeTurns}, coalNeeded: {coalNeeded}")
     print(move)
 
     return move

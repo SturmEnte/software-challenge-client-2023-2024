@@ -6,3 +6,11 @@ ONE,TWO,ONE,ONE,false,0,0,0,2,36,0,Regelverletzung von Spieler 2: Die minimale G
 ONE,TWO,ONE,TWO,true,2,26,0,0,8,0,Spieler 2 hat mehr Punkte.
 ONE,TWO,ONE,ONE,false,0,0,0,2,38,0,Regelverletzung von Spieler 2: Die minimale Geschwindigkeit von 1 darf nicht unterschritten werden. bei 'Move[Beschleunige um -2]'
 ONE,TWO,ONE,ONE,false,0,0,0,2,37,0,Regelverletzung von Spieler 2: Die minimale Geschwindigkeit von 1 darf nicht unterschritten werden. bei 'Move[Beschleunige um -2]'
+ONE,TWO,ONE,TWO,true,2,26,0,0,7,0,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,31,0,0,18,1,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,ONE,false,0,0,0,2,36,2,Regelverletzung von Spieler 2: Nicht genug Bewegungspunkte für notwendige nachfolgende Abdrängaktion. bei 'Move[Beschleunige um -1, Gehe 1 Felder vor, Dränge nach RIGHT ab, Drehe nach RIGHT, Gehe 1 Felder vor]'
+ONE,TWO,ONE,ONE,true,0,18,0,2,35,0,Spieler 1 hat mehr Punkte.
+ONE,TWO,ONE,ONE,true,0,28,0,2,36,0,Spieler 1 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,31,0,0,15,1,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,25,0,0,18,2,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,37,0,0,33,0,Spieler 2 hat mehr Punkte.
