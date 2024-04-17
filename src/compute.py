@@ -210,6 +210,9 @@ def getAStarMove(state, start, end):
 
 def getRandomMove(state):
     return getAStarMove(state, positionDictToTuple(state.player.position), state.board.getRandomCoords())
+
+def getNextMove(state):
+    return getAStarMove(state, positionDictToTuple(state.player.position), state.board.getNextCoords())
     
 def getBestMove(state):
     return getAStarMove(state, positionDictToTuple(state.player.position), state.board.farthestField)
@@ -218,7 +221,7 @@ def computeMove(state):
     move, move_possible = getBestMove(state)
 
     while not move_possible:
-        move, move_possible = getRandomMove(state)
+        move, move_possible = getNextMove(state)
 
     # print(f"movementPoints: {movementPoints}, freeTurns: {freeTurns}, coalNeeded: {coalNeeded}")
     print(move)

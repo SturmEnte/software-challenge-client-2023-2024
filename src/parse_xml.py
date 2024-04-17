@@ -80,9 +80,11 @@ def parseBoard(boardTag, nextDirection):
     segments = boardTag.findall('segment')
 
     segmentsCount = len(segments)
+    board.segment_counter = segmentsCount - 1
     
     directions = []
     for segment in segments:
+        board.segments.append([])
         directions.append(segment.attrib['direction'])
     directions.append(nextDirection)
     
@@ -133,6 +135,7 @@ def parseBoard(boardTag, nextDirection):
                 
                 coords = convertCoordinates(fieldArrayCount, fieldCount, segmentDirection, center)
                 board.setField(coords[0], coords[1], coords[2], field)
+                board.segments[segmentCount].append(((coords[0], coords[1], coords[2]), field))
 
                 # check for farthest field
                 if segmentCount == segmentsCount - 1 and fieldArrayCount == 3:

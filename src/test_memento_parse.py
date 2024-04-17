@@ -22,3 +22,4 @@ with open("../test/memento1.xml", "r") as msg:
     t2 = time()
     print(f"Zeit: {t2-t1}   Zug: {turn}")
     state.printState()
+    state.printBoardSegments()

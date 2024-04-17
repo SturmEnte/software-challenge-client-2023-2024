@@ -111,3 +111,9 @@ Points:     {player.points}
         self.printPlayer()
         self.printPlayer(False)
         print("-----------------------------------")
+    
+    def printBoardSegments(self):
+        for i, segment in enumerate(self.board.segments):
+            print(f"SEGMENT {i}:")
+            for field in segment:
+                print(f"    {field[1].type}")

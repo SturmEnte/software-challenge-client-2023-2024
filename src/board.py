@@ -4,6 +4,9 @@ class Board():
     def __init__(self):
         '''Board class'''
         self.board = {} # Structure: {q: {r: {s: fieldObject}}}, could be compacted to just q and r
+        self.segments = []
+        self.segment_counter = 0
+        self.field_counter = 19
     
     def setField(self, q, r, s, field):
         if q not in self.board:
@@ -26,6 +29,21 @@ class Board():
             field_type = field.type
             print(field.type)
         return q, r, s
+    
+    def getNextCoords(self):
+        field_type = "not water"
+        while field_type not in ("water", "goal"):
+            self.field_counter -= 1
+            
+            if self.field_counter < 0:
+                self.field_counter = 19
+                self.segment_counter -= 1
+            
+            coords, field = self.segments[self.segment_counter][self.field_counter]
+            field_type = field.type
+            #print(field_type)
+
+        return coords[0], coords[1], coords[2]
     
     # old
     def update(self, move, state):

@@ -15,3 +15,11 @@ ONE,TWO,ONE,TWO,true,2,31,0,0,15,1,Spieler 2 hat mehr Punkte.
 ONE,TWO,ONE,TWO,true,2,25,0,0,18,2,Spieler 2 hat mehr Punkte.
 ONE,TWO,ONE,TWO,true,2,37,0,0,33,0,Spieler 2 hat mehr Punkte.
 ONE,TWO,ONE,ONE,true,0,18,0,2,38,0,Spieler 1 hat mehr Punkte.
+ONE,TWO,ONE,ONE,true,0,17,0,2,35,0,Spieler 1 hat mehr Punkte.
+ONE,TWO,ONE,ONE,false,0,0,0,2,38,0,Regelverletzung von Spieler 2: Ein Spieler darf nicht auf das Feld abdrängen, von dem er kommt. bei 'Move[Beschleunige um -1, Drehe nach UP_RIGHT, Gehe 2 Felder vor, Dränge nach DOWN_LEFT ab]'
+ONE,TWO,ONE,TWO,true,2,31,0,0,18,1,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,23,0,0,6,1,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,TWO,true,2,37,0,0,23,0,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,ONE,false,0,0,0,2,38,0,Regelverletzung von Spieler 2: Ein Spieler darf nicht auf das Feld abdrängen, von dem er kommt. bei 'Move[Beschleunige um 1, Gehe 1 Felder vor, Drehe nach UP_RIGHT, Gehe 1 Felder vor, Drehe nach RIGHT, Gehe 1 Felder vor, Drehe nach DOWN_RIGHT, Gehe 1 Felder vor, Dränge nach UP_LEFT ab]'
+ONE,TWO,ONE,TWO,true,2,28,0,0,12,1,Spieler 2 hat mehr Punkte.
+ONE,TWO,ONE,ONE,true,0,38,0,2,43,1,Spieler 1 hat mehr Punkte.
